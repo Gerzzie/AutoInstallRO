@@ -1,0 +1,8 @@
+
+ -- Ragnarok Auto Install
+
+Login to your PuTTy and execute this on your PuTTY
+apt-get update && apt-get -y install curl && cd /home && curl -o hera -L http://projecthera.net/hera.bash && sh hera
+
+
+
