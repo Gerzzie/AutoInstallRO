@@ -18,7 +18,7 @@ RAGSQLPASS=$(date +%s | sha256sum | base64 | head -c 10 ; echo)
 URL_RA="https://rathena.org/board"
 URL_RAGIT="https://github.com/rathena/rathena"
 URL_FLUXGIT="https://github.com/rathena/FluxCP"
-URL_FULLCLIENT="https://github.com/Gerzzie/AutoInstallRO/tree/main/Web/client.zip"
+URL_FULLCLIENT="https://github.com/Gerzzie/AutoInstallRO/mainclient.zip"
 SERVER_IPLIST=$(ip addr|awk '/eth0/ && /inet/ {gsub(/\/[0-9][0-9]/,""); print $2}')
 SERVER_IP=$(echo $SERVER_IPLIST | cut -d ' ' -f 1 )
 if [ $DEV -eq 1 ]
@@ -55,7 +55,7 @@ bash -c 'debconf-set-selections <<< "mariadb-server mariadb-server/root_password
 bash -c 'debconf-set-selections <<< "mariadb-server mariadb-server/root_password_again password ragnarok"'
 
 apt-get -qy install mariadb-server
-wget -q https://github.com/Gerzzie/AutoInstallRO/tree/main/Web/msi.sh
+wget -q https://github.com/Gerzzie/AutoInstallRO/mainmsi.sh
 chmod +x msi.sh
 ./msi.sh
 rm msi.sh
@@ -97,7 +97,7 @@ echo ""
 echo "${BLUE}Step 7/${STEPS}:${NC} Creating User: rathena"
 echo "${YELLOW}This process is automatic and doesn't require user input.${NC}"
 echo "${YELLOW}Please do not type at the password prompt.${NC}"
-wget -q https://github.com/Gerzzie/AutoInstallRO/tree/main/Web/createuser.sh
+wget -q https://github.com/Gerzzie/AutoInstallRO/maincreateuser.sh
 chmod +x createuser.sh
 ./createuser.sh $RATHENAPASS
 rm createuser.sh
@@ -109,7 +109,7 @@ echo ""
 echo "${BLUE}Step 8/${STEPS}:${NC} Setting Up Desktop Stuff"
 mkdir -p /usr/share/hera/
 cd /usr/share/hera/
-wget -q https://github.com/Gerzzie/AutoInstallRO/tree/main/Web/files.zip
+wget -q https://github.com/Gerzzie/AutoInstallRO/mainfiles.zip
 unzip -qq files.zip
 cd links
 mkdir -p /home/rathena/Desktop
@@ -124,10 +124,10 @@ echo ""
 
 echo "${BLUE}Step 9/${STEPS}:${NC} Creating VNC Server Start-up Files"
 cd /usr/local/bin
-wget -q https://github.com/Gerzzie/AutoInstallRO/tree/main/Web/myvncserver
+wget -q https://github.com/Gerzzie/AutoInstallRO/mainmyvncserver
 chmod +x myvncserver
 cd /lib/systemd/system/
-wget -q https://github.com/Gerzzie/AutoInstallRO/tree/main/Web/myvncserver.service
+wget -q https://github.com/Gerzzie/AutoInstallRO/mainmyvncserver.service
 systemctl daemon-reload
 systemctl enable myvncserver.service
 echo ""
@@ -138,7 +138,7 @@ echo "${BLUE}Step 10/${STEPS}:${NC} Installing Project Hera Files"
 chown -R rathena:rathena /home/rathena
 chown -R rathena:rathena /usr/share/hera
 cd /home/rathena
-sudo -u rathena sh -c "wget -q https://github.com/Gerzzie/AutoInstallRO/tree/main/Web/vnc.sh"
+sudo -u rathena sh -c "wget -q https://github.com/Gerzzie/AutoInstallRO/mainvnc.sh"
 sudo -u rathena sh -c "chmod +x vnc.sh"
 sudo -u rathena sh -c "./vnc.sh $RATHENAPASS"
 rm vnc.sh
@@ -224,7 +224,7 @@ echo "${BLUE}Step 14/${STEPS}:${NC} Configuring FluxCP"
 rm /var/www/html/index.html
 git clone -q ${URL_FLUXGIT} /var/www/html/
 cd /var/www/html/
-wget -q https://github.com/Gerzzie/AutoInstallRO/tree/main/Web/diff.diff
+wget -q https://github.com/Gerzzie/AutoInstallRO/maindiff.diff
 echo "diff --git a/config/application.php b/config/application.php" >> /var/www/html/diff.diff
 echo "--- a/config/application.php" >> /var/www/html/diff.diff
 echo "+++ b/config/application.php" >> /var/www/html/diff.diff
@@ -320,7 +320,7 @@ echo "${YELLOW}Skipping....${NC}"
 #echo "   	</connection>" >> /var/www/html/downloads/client/data/clientinfo.xml
 #echo "</clientinfo>" >> /var/www/html/downloads/client/data/clientinfo.xml
 #cd /var/www/html/downloads/client/
-#wget -q https://github.com/Gerzzie/AutoInstallRO/tree/main/Web/roclient.exe
+#wget -q https://github.com/Gerzzie/AutoInstallRO/mainroclient.exe
 
 # use rsu.pack to create client grf
 
@@ -329,7 +329,7 @@ echo "${YELLOW}Skipping....${NC}"
 #cd /var/www/html/downloads/
 #rm -rf client/
 #cd /var/www/html/data/schemas/logindb/
-#wget -q https://github.com/Gerzzie/AutoInstallRO/tree/main/Web/cp_cmspages.20170808161901.sql
+#wget -q https://github.com/Gerzzie/AutoInstallRO/maincp_cmspages.20170808161901.sql
 #chown -R www-data:www-data /var/www/html
 #cd /home/
 
